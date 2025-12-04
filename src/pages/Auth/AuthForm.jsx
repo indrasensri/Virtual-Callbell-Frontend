@@ -74,37 +74,38 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full items-center justify-center">
-      {/* Background image */}
-      <div className="absolute inset-0 bg-cover bg-center" />
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-white" />
-
+    <div className="relative flex min-h-screen w-full items-center justify-center bg-black">
       {/* Form card */}
-      <div className="relative z-10 w-full max-w-sm rounded-2xl border border-gray-700 bg-black p-6 shadow-lg backdrop-blur-md sm:p-8">
+      <div
+        className="relative z-10 w-full max-w-md rounded-2xl md:border border-[#ff1212] p-6 shadow-lg 
+      backdrop-blur-md sm:p-8">
         {/* Scan Section */}
 
-        <div>
-          <img src="/icon.png" alt="Login" className="w-20 h-20 mx-auto mb-5" />
+        <div className="mb-5">
+          <img
+            src="/icon.png"
+            alt="Login"
+            className="w-28 h-28 mx-auto mb-5 border-2 border-[#ff1212] rounded-full p-3"
+          />
+          <h2 className="text-2xl font-bold text-center text-white">
+            CallBell
+          </h2>
         </div>
 
-        <div className="mb-6 flex items-center justify-between rounded-xl border border-gray-600 p-2">
-          <h2 className="text-lg font-semibold text-white tracking-tight">
-            Scan for Call
-          </h2>
-          <div className="flex items-center justify-center rounded-lg border border-gray-600 p-2">
+        <div className="mb-6 flex items-center gap-2 justify-center rounded-xl p-2">
+          <div className="flex items-center justify-center rounded-lg border border-gray-600 p-2 bg-[#ff1212]">
             <QrScanner />
           </div>
+          <h2 className="text-lg font-semibold text-white">Scan for Call</h2>
         </div>
 
         {/* Toggle Tabs */}
-        <div className="flex border-b border-gray-700 text-white">
+        <div className="flex border border-[#ff1212] text-white">
           <button
             className={`flex-1 p-3 text-center font-semibold uppercase transition ${
               !signUp
-                ? "bg-gray-800 text-white"
-                : "hover:bg-gray-700 hover:text-white"
+                ? "bg-[#ff1212] text-white"
+                : "hover:bg-[#970303] hover:text-white"
             }`}
             onClick={() => setSignUp(false)}>
             Sign In
@@ -112,8 +113,8 @@ const AuthForm = () => {
           <button
             className={`flex-1 p-3 text-center font-semibold uppercase transition ${
               signUp
-                ? "bg-gray-800 text-white"
-                : "hover:bg-gray-700 hover:text-white"
+                ? "bg-[#ff1212] text-white"
+                : "hover:bg-[#970303] hover:text-white"
             }`}
             onClick={() => setSignUp(true)}>
             Sign Up
@@ -124,10 +125,6 @@ const AuthForm = () => {
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 pt-6 text-white">
-          <h1 className="text-center text-xl font-bold uppercase tracking-wide">
-            {signUp ? "Create Account" : "Welcome Back"}
-          </h1>
-
           {signUp && (
             <input
               name="name"
@@ -136,7 +133,8 @@ const AuthForm = () => {
               type="text"
               placeholder="Full Name"
               required
-              className="w-full rounded-md border border-gray-600 bg-black px-3 py-2 text-white placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-[#ff1212] bg-black px-3 py-2
+               text-white placeholder-gray-400 outline-none focus:border-[#970303] focus:ring-2 focus:ring-[#970303]"
             />
           )}
 
@@ -147,7 +145,8 @@ const AuthForm = () => {
             type="email"
             placeholder="Email"
             required
-            className="w-full rounded-md border border-gray-600 bg-black px-3 py-2 text-white placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-[#ff1212] bg-black px-3 py-2
+             text-white placeholder-gray-400 outline-none focus:border-[] focus:ring-2 focus:ring-[#970303]"
           />
 
           <input
@@ -157,16 +156,9 @@ const AuthForm = () => {
             type="password"
             placeholder="Password"
             required
-            className="w-full rounded-md border border-gray-600 bg-black px-3 py-2 text-white placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-[#ff1212] bg-black px-3 py-2 text-white
+             placeholder-gray-400 outline-none focus:border-[#970303] focus:ring-2 focus:ring-[#970303]"
           />
-
-          {!signUp && (
-            <p className="text-right text-sm text-gray-400">
-              <Link to="/forget-password" className="hover:underline">
-                Forgot password?
-              </Link>
-            </p>
-          )}
 
           {error && (
             <p className="text-center text-sm font-medium text-red-500">
@@ -177,11 +169,13 @@ const AuthForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md border border-gray-600 bg-white px-5 py-2 font-semibold uppercase text-black shadow-md transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-70">
+            className="rounded-md bg-[#ff1212] px-5 py-2 font-semibold 
+            uppercase text-white shadow-md transition
+             hover:bg-[#970303] disabled:cursor-not-allowed disabled:opacity-70">
             {loading ? "Processing..." : "Submit"}
           </button>
 
-          <p className="text-center text-sm text-gray-300">
+          {/* <p className="text-center text-sm text-gray-300">
             {signUp ? "Already have an account?" : "Don’t have an account?"}{" "}
             <button
               type="button"
@@ -189,7 +183,14 @@ const AuthForm = () => {
               className="font-semibold underline">
               {signUp ? "Sign In" : "Sign Up"}
             </button>
-          </p>
+          </p> */}
+          {!signUp && (
+            <p className="text-center text-sm text-gray-400">
+              <Link to="/forget-password" className="hover:underline">
+                Forgot password?
+              </Link>
+            </p>
+          )}
         </form>
       </div>
     </div>
