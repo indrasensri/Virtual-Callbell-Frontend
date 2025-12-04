@@ -10,25 +10,27 @@ import {
 import GuestModal from "../../components/welcomeModal/WelcomeModal";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import BannerSlider from "../../components/Slider/BannerSlider";
 
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
-      
       {/* Navbar */}
       <header className="w-full sticky top-0 z-50 shadow-md bg-white">
         <Navbar />
       </header>
 
       <div
-        className="hero min-h-screen"
-        style={{
-          backgroundImage: "url(banner2.jpg)",
-        }}>
-        <div className="hero-overlay opacity-30"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <img src="mainBanner.jpg" className="w-full  md:h-[85vh]"/>
-        </div>
+      // className="hero min-h-screen"
+      // style={{
+      //   backgroundImage: "url(banner2.jpg)",
+      // }}
+      >
+        {/* <div className="hero-overlay opacity-30"></div> */}
+        {/* <div className="hero-content text-neutral-content text-center">
+          <img src="mainBanner.jpg" className="w-full  md:h-[85vh]" />
+        </div> */}
+        <BannerSlider />
       </div>
 
       {/* Features Section */}
@@ -166,8 +168,8 @@ const Home = () => {
           Ready to Experience Seamless Calls?
         </h2>
         <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
-          Join CallBell today and enjoy professional, instant, and
-          secure calling features.
+          Join CallBell today and enjoy professional, instant, and secure
+          calling features.
         </p>
         <div className="flex justify-center gap-4">
           <GuestModal />
