@@ -33,12 +33,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<AuthForm />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/userInfo" element={<UserInfo />} />
-        <Route path="/room" element={<RoomPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/room" element={<RoomPage />} />
+        
+        <Route path="/userInfo" element={<UserInfo />} />
 
         {/* Dashboard with nested routes */}
         <Route path="/dashboard" element={<DashboardLayout />}>
