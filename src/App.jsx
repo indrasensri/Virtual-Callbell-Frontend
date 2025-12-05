@@ -38,7 +38,6 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/room" element={<RoomPage />} />
-        
         <Route path="/userInfo" element={<UserInfo />} />
 
         {/* Dashboard with nested routes */}
