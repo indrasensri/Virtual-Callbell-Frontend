@@ -1,12 +1,32 @@
 import { useEffect, useState } from "react";
 import { useCall } from "../../Provider/Provider";
 import myData from "../../hooks/users/myData";
+import { 
+  Calendar, 
+  Clock, 
+  CreditCard, 
+  TrendingUp, 
+  Users, 
+  PhoneCall, 
+  Shield,
+  BarChart3,
+  DollarSign,
+  CheckCircle,
+  AlertCircle,
+  Download,
+  ArrowUpRight,
+  Zap,
+  Target,
+  Activity
+} from "lucide-react";
 
 const Dashboard = () => {
   const { user } = useCall();
   const [myInfo, setMyInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getRemainingDays = (endDate) => {
+    if (!endDate) return 0;
     const today = new Date();
     const end = new Date(endDate);
     const diffTime = end - today;
@@ -20,126 +40,394 @@ const Dashboard = () => {
       ?.map((n) => n[0])
       ?.slice(0, 2)
       ?.join("")
-      ?.toUpperCase();
+      ?.toUpperCase() || "U";
 
   useEffect(() => {
     if (user) {
       const fetch = async () => {
+        setLoading(true);
         const { data } = await myData({ id: user.id });
         if (data.success) {
           setMyInfo(data.data);
         }
+        setLoading(false);
       };
       fetch();
     }
   }, [user]);
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-10 flex flex-col gap-10">
-      {/* Welcome Banner */}
-      <div className="bg-indigo-600 text-white rounded-xl p-6 md:p-10 shadow-md flex flex-col md:flex-row items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-semibold">
-            Welcome, {user?.name?.split(" ")[0]}!
-          </h1>
-          <p className="mt-1 sm:mt-2 text-sm sm:text-base">
-            Glad to see you at{" "}
-            <span className="font-medium">CallBell</span>
-          </p>
-        </div>
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-white text-indigo-600 flex items-center justify-center text-xl sm:text-2xl font-bold">
-          {myInfo?.image ? (
-            <img
-              src={myInfo?.image}
-              alt="Profile Picture"
-              width={96}
-              height={96}
-              className="object-cover"
-            />
-          ) : (
-            getInitials(user?.name)
-          )}
-        </div>
-      </div>
+  const stats = [
+    {
+      title: "Available Minutes",
+      value: myInfo?.subscription?.minute || "0",
+      change: "+12%",
+      icon: Clock,
+      color: "from-blue-600 to-cyan-500",
+      label: "Total available"
+    },
+    {
+      title: "Calls Today",
+      value: "12",
+      change: "+3",
+      icon: PhoneCall,
+      color: "from-green-600 to-emerald-500",
+      label: "Active calls"
+    },
+    {
+      title: "Total Contacts",
+      value: "48",
+      change: "+5",
+      icon: Users,
+      color: "from-purple-600 to-pink-500",
+      label: "Connected users"
+    },
+    {
+      title: "Active Plan",
+      value: myInfo?.subscription?.plan || "Free",
+      change: "Premium",
+      icon: Shield,
+      color: "from-red-600 to-orange-500",
+      label: "Current plan"
+    }
+  ];
 
-      {/* Subscription Overview */}
-      <div className="bg-white rounded-xl shadow-md p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-            Your Subscription
-          </h2>
-          <div className="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
-            <p>
-              <span className="font-medium">Plan:</span>{" "}
-              {myInfo?.subscription?.plan}
-            </p>
-            <p>
-              <span className="font-medium">Remaining Minutes:</span>{" "}
-              {myInfo?.subscription?.minute} Minutes
-            </p>
-            <p>
-              <span className="font-medium">Remaining Days:</span>{" "}
-              {getRemainingDays(myInfo?.subscription?.endDate)} days
-            </p>
-            <p>
-              <span className="font-medium">Ends on:</span>{" "}
-              {myInfo?.subscription?.endDate?.slice(0, 10)}
-            </p>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-3 sm:p-4 md:p-6 lg:p-8">
+      {loading ? (
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="relative">
+              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-r from-red-600 to-red-700 animate-pulse mb-4"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 border-4 border-red-200 border-t-red-600 rounded-full animate-spin"></div>
+              </div>
+            </div>
+            <p className="text-gray-600 mt-4 font-medium">Loading your dashboard...</p>
           </div>
         </div>
-        <div className="text-indigo-600 text-lg font-semibold">
-          {myInfo?.transactionHistory?.length} Subscription
-          {myInfo?.transactionHistory?.length > 1 ? "s" : ""}
-        </div>
-      </div>
+      ) : (
+        <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
+          {/* Welcome Header */}
+          <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-white flex-1">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+                    Welcome back, <span className="text-white">{user?.name?.split(" ")[0] || "User"}!</span>
+                  </h1>
+                </div>
+                <p className="text-red-100 text-sm sm:text-base md:text-lg max-w-2xl">
+                  Here's your dashboard overview. Everything you need to manage your calls and subscriptions.
+                </p>
+                <div className="flex items-center gap-4 mt-4">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-300" />
+                    <span className="text-sm">Account active</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-green-300" />
+                    <span className="text-sm">Online now</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-2xl blur-lg"></div>
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gradient-to-br from-white/20 to-white/10 border-4 border-white/30 backdrop-blur-sm flex items-center justify-center text-white text-2xl sm:text-3xl md:text-4xl font-bold">
+                  {myInfo?.image ? (
+                    <img
+                      src={myInfo?.image}
+                      alt="Profile Picture"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    getInitials(user?.name)
+                  )}
+                </div>
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-green-500 border-4 border-red-700"></div>
+              </div>
+            </div>
+          </div>
 
-      {/* Transaction History */}
-      <div className="bg-white rounded-xl shadow-md p-6 md:p-10 overflow-x-auto">
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4">
-          Latest Transactions
-        </h2>
-        <table className="min-w-full text-left text-gray-700 text-xs sm:text-sm">
-          <thead>
-            <tr className="border-b border-gray-300">
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">No.</th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">Date</th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">Plan</th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">
-                Duration
-              </th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">Minute</th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">Amount</th>
-              <th className="px-2 sm:px-3 py-1 sm:py-2 font-medium">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {myInfo?.transactionHistory?.map((tran, idx) => (
-              <tr key={idx} className="border-b border-gray-200">
-                <td className="px-2 sm:px-3 py-1 sm:py-2">{idx + 1}</td>
-                <td className="px-2 sm:px-3 py-1 sm:py-2">
-                  {tran.createdAt.slice(0, 10)}
-                </td>
-                <td className="px-2 sm:px-3 py-1 sm:py-2">{tran.plan}</td>
-                <td className="px-2 sm:px-3 py-1 sm:py-2">
-                  {tran.planDuration} days
-                </td>
-                <td className="px-2 sm:px-3 py-1 sm:py-2">
-                  {tran.planMinute} minutes
-                </td>
-                <td className="px-2 sm:px-3 py-1 sm:py-2">₹{tran.amount}</td>
-                <td
-                  className={`px-2 sm:px-3 py-1 sm:py-2 font-medium ${
-                    tran.status === "Completed"
-                      ? "text-green-600"
-                      : "text-red-600"
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {stats.map((stat, index) => (
+              <div 
+                key={index} 
+                className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 p-4 sm:p-5"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+                    <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                    stat.change.includes('+') 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-red-100 text-red-700'
                   }`}>
-                  {tran.status}
-                </td>
-              </tr>
+                    {stat.change}
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs sm:text-sm text-gray-500">{stat.title}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-xs text-gray-500">{stat.label}</p>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </div>
+
+          {/* Subscription Overview & Quick Actions */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+            {/* Subscription Card */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-red-50 to-white p-4 sm:p-6 border-b border-red-100">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center">
+                        <Target className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Subscription Overview</h2>
+                        <p className="text-sm text-gray-600">Manage your current plan and usage</p>
+                      </div>
+                    </div>
+                    <button className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200 text-sm font-semibold">
+                      Upgrade Plan
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <CreditCard className="w-4 h-4 text-gray-500" />
+                        <span className="text-sm text-gray-600">Current Plan</span>
+                      </div>
+                      <p className="text-lg font-bold text-gray-900">{myInfo?.subscription?.plan || "Free Plan"}</p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-gray-500" />
+                        <span className="text-sm text-gray-600">Remaining Days</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-bold text-gray-900">
+                          {getRemainingDays(myInfo?.subscription?.endDate)} days
+                        </div>
+                        {getRemainingDays(myInfo?.subscription?.endDate) <= 7 && (
+                          <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Expiring soon</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <DollarSign className="w-4 h-4 text-gray-500" />
+                        <span className="text-sm text-gray-600">Next Renewal</span>
+                      </div>
+                      <p className="text-lg font-bold text-gray-900">
+                        {myInfo?.subscription?.endDate 
+                          ? new Date(myInfo.subscription.endDate).toLocaleDateString('en-US', { 
+                              month: 'short', 
+                              day: 'numeric',
+                              year: 'numeric' 
+                            })
+                          : 'No active subscription'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Usage Progress */}
+                  <div className="mt-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">Minute Usage</span>
+                      <span className="text-sm font-bold text-gray-900">
+                        {myInfo?.subscription?.minute || 0} minutes available
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div 
+                        className="bg-gradient-to-r from-red-600 to-red-700 h-2.5 rounded-full transition-all duration-500"
+                        style={{ width: `${Math.min(100, ((1000 - (myInfo?.subscription?.minute || 0)) / 1000) * 100)}%` }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>0 min</span>
+                      <span>500 min</span>
+                      <span>1000 min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-red-50 to-white p-4 sm:p-6 border-b border-red-100">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">Quick Actions</h3>
+                    <p className="text-sm text-gray-600">Frequently used tasks</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-4 sm:p-6 space-y-3">
+                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <PhoneCall className="w-5 h-5 text-red-500 group-hover:text-red-600" />
+                    <span className="font-medium text-black">Start New Call</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
+                </button>
+
+                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <Download className="w-5 h-5 text-red-500 group-hover:text-red-600" />
+                    <span className="font-medium text-black">Download Reports</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
+                </button>
+
+                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <CreditCard className="w-5 h-5 text-red-500 group-hover:text-red-600" />
+                    <span className="font-medium text-black">Manage Payment</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
+                </button>
+
+                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-red-500 group-hover:text-red-600" />
+                    <span className="font-medium text-black">Invite Friends</span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Transaction History */}
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+            <div className="bg-gradient-to-r from-red-50 to-white p-4 sm:p-6 border-b border-red-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Transaction History</h2>
+                    <p className="text-sm text-gray-600">Recent subscription purchases and renewals</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="px-3 py-2 text-sm border text-red-500 border-gray-300 font-bold rounded-lg hover:bg-gray-50 transition-colors">
+                    Filter
+                  </button>
+                  <button className="px-3 py-2 text-sm bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200">
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Transaction ID
+                    </th>
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Plan
+                    </th>
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Amount
+                    </th>
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {myInfo?.transactionHistory?.map((tran, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        #{tran._id?.slice(-8) || idx + 1000}
+                      </td>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                        {new Date(tran.createdAt).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </td>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${
+                            tran.plan?.toLowerCase().includes('premium') 
+                              ? 'bg-red-500' 
+                              : 'bg-blue-500'
+                          }`}></div>
+                          <span className="text-sm font-medium text-gray-900">{tran.plan}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                        ₹{tran.amount}
+                      </td>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          tran.status === "Completed"
+                            ? 'bg-green-100 text-green-800'
+                            : tran.status === "Pending"
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {tran.status === "Completed" && <CheckCircle className="w-3 h-3 mr-1" />}
+                          {tran.status === "Pending" && <AlertCircle className="w-3 h-3 mr-1" />}
+                          {tran.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                        <button className="text-red-600 hover:text-red-800 font-medium text-sm">
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              
+              {(!myInfo?.transactionHistory || myInfo.transactionHistory.length === 0) && (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                    <CreditCard className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No transactions yet</h3>
+                  <p className="text-gray-600 max-w-sm mx-auto">Your transaction history will appear here once you make your first purchase.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
