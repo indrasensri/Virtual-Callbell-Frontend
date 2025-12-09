@@ -33,18 +33,6 @@ const Terms = () => {
     window.print();
   };
 
-  const handleDownload = () => {
-    const element = document.createElement("a");
-    const file = new Blob(
-      [document.getElementById("terms-content").innerText],
-      { type: "text/plain" }
-    );
-    element.href = URL.createObjectURL(file);
-    element.download = "callbell-terms-of-service.txt";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
 
   const termsSections = [
     {
@@ -184,12 +172,6 @@ const Terms = () => {
                   {/* Action Buttons */}
                   <div className="mt-8 pt-6 border-t border-gray-200">
                     <div className="space-y-3">
-                      <button
-                        onClick={handleDownload}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-xl hover:opacity-90 transition-all font-medium">
-                        <Download className="w-4 h-4" />
-                        Download Terms
-                      </button>
                       <button
                         onClick={handlePrint}
                         className="w-full flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium">

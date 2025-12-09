@@ -16,6 +16,7 @@ import {
   Cpu,
   Sparkles,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const teamMembers = [
@@ -476,12 +477,11 @@ const About = () => {
             Experience the future of professional communication today
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
-              Start Free Trial
-            </button>
-            <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all duration-300">
-              Schedule Demo
-            </button>
+            <Link to={"/login"}>
+              <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
+                Start Free Trial
+              </button>
+            </Link>
           </div>
         </div>
       </section>
