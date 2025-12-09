@@ -126,7 +126,7 @@ const Home = () => {
               },
               {
                 icon: MessageCircle,
-                title: "Real-time Messaging",
+                title: "Real-time Communication",
                 description:
                   "Send instant messages alongside your voice calls for better collaboration.",
                 color: "from-purple-500 to-pink-600",

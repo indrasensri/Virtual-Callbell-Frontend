@@ -53,11 +53,11 @@ const DashboardLayout = () => {
     // { href: "/dashboard/docs", label: "Documentation", icon: FileText },
   ];
 
-  const quickActions = [
-    { icon: PhoneCall, label: "New Call", color: "from-red-600 to-red-700" },
-    { icon: Calendar, label: "Schedule", color: "from-blue-600 to-blue-700" },
-    { icon: Users, label: "Contacts", color: "from-green-600 to-green-700" },
-  ];
+  // const quickActions = [
+  //   { icon: PhoneCall, label: "New Call", color: "from-red-600 to-red-700" },
+  //   { icon: Calendar, label: "Schedule", color: "from-blue-600 to-blue-700" },
+  //   { icon: Users, label: "Contacts", color: "from-green-600 to-green-700" },
+  // ];
 
   return (
     <PrivateRoute>
@@ -185,7 +185,7 @@ const DashboardLayout = () => {
           </div>
 
           {/* Quick Actions - Mobile */}
-          <div className="lg:hidden bg-white border-b border-gray-100 px-4 py-3">
+          {/* <div className="lg:hidden bg-white border-b border-gray-100 px-4 py-3">
             <div className="flex items-center justify-between space-x-2 overflow-x-auto pb-2">
               {quickActions.map((action, index) => (
                 <button
@@ -196,7 +196,7 @@ const DashboardLayout = () => {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Main Content */}
           <main className="flex-1 overflow-y-auto">

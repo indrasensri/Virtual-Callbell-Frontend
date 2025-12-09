@@ -22,6 +22,7 @@ const ForgetPassword = () => {
       const { data } = await axios.post(BASE_URL + `/auth/send-code`, {
         email,
       });
+      console.log(data);
       if (data.success) {
         setStep(2);
         setError("");

@@ -17,7 +17,7 @@ import {
   Video,
   VideoOff,
   MessageSquare,
-  Bell
+  Bell,
 } from "lucide-react";
 
 export default function CallPopup() {
@@ -110,7 +110,9 @@ export default function CallPopup() {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   // Toggle sound
@@ -118,7 +120,9 @@ export default function CallPopup() {
     setSoundEnabled(!soundEnabled);
     if (audioRef.current) {
       if (!soundEnabled) {
-        audioRef.current.play().catch(err => console.log("Could not play sound:", err));
+        audioRef.current
+          .play()
+          .catch((err) => console.log("Could not play sound:", err));
       } else {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
@@ -133,7 +137,7 @@ export default function CallPopup() {
       {modalOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
           {/* Backdrop with blur */}
-          <div 
+          <div
             className="absolute inset-0 bg-gradient-to-br from-red-900/30 to-red-600/20 backdrop-blur-lg"
             onClick={handleDeclineCall}
           />
@@ -160,8 +164,7 @@ export default function CallPopup() {
               <div className="absolute top-4 right-4 z-10">
                 <button
                   onClick={handleDeclineCall}
-                  className="p-2 rounded-full bg-gray-800/80 hover:bg-red-600/80 text-gray-300 hover:text-white transition-all backdrop-blur-sm"
-                >
+                  className="p-2 rounded-full bg-gray-800/80 hover:bg-red-600/80 text-gray-300 hover:text-white transition-all backdrop-blur-sm">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -174,7 +177,7 @@ export default function CallPopup() {
                   <div className="absolute inset-0 rounded-full bg-red-500/20 animate-ping"></div>
                   <div className="absolute inset-0 rounded-full bg-red-500/15 animate-ping delay-300"></div>
                   <div className="absolute inset-0 rounded-full bg-red-500/10 animate-ping delay-600"></div>
-                  
+
                   {/* Avatar */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-600 to-red-700 shadow-lg flex items-center justify-center z-10">
                     {incomingCall?.from?.avatar ? (
@@ -186,7 +189,9 @@ export default function CallPopup() {
                     ) : (
                       <div className="flex flex-col items-center justify-center">
                         <User className="w-16 h-16 text-white/90" />
-                        <span className="text-white/80 text-sm mt-1">Calling...</span>
+                        <span className="text-white/80 text-sm mt-1">
+                          Calling...
+                        </span>
                       </div>
                     )}
                   </div>
@@ -200,11 +205,11 @@ export default function CallPopup() {
                       {timerActive ? "Active Call" : "Incoming Call"}
                     </h2>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold text-white mb-2">
                     {incomingCall.from.name}
                   </h3>
-                  
+
                   {timerActive ? (
                     <div className="flex items-center justify-center gap-2 text-gray-300">
                       <Clock className="w-4 h-4" />
@@ -230,8 +235,7 @@ export default function CallPopup() {
                     <div className="flex items-center justify-center gap-3">
                       <button
                         onClick={toggleSound}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors"
-                      >
+                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors">
                         {soundEnabled ? (
                           <>
                             <Volume2 className="w-4 h-4" />
@@ -243,18 +247,6 @@ export default function CallPopup() {
                             <span className="text-sm">Unmute Ring</span>
                           </>
                         )}
-                      </button>
-                      
-                      <button
-                        onClick={() => {
-                          // Send quick message
-                          alert("Quick message sent: 'I'll call you back later'");
-                          handleDeclineCall();
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-                      >
-                        <MessageSquare className="w-4 h-4" />
-                        <span className="text-sm">Message</span>
                       </button>
                     </div>
                   )}
@@ -272,8 +264,7 @@ export default function CallPopup() {
                         </button>
                         <button
                           onClick={handleDeclineCall}
-                          className="p-4 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-red-500/30 transition-all animate-pulse"
-                        >
+                          className="p-4 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-red-500/30 transition-all animate-pulse">
                           <PhoneOff className="w-6 h-6" />
                         </button>
                       </>
@@ -282,8 +273,7 @@ export default function CallPopup() {
                       <>
                         <button
                           onClick={handleDeclineCall}
-                          className="relative group"
-                        >
+                          className="relative group">
                           <div className="absolute inset-0 rounded-full bg-red-600/30 group-hover:bg-red-600/50 animate-ping"></div>
                           <div className="relative flex flex-col items-center gap-2 p-4 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-red-500/30 transition-all">
                             <PhoneOff className="w-8 h-8" />
@@ -293,8 +283,7 @@ export default function CallPopup() {
 
                         <button
                           onClick={handleAcceptCall}
-                          className="relative group"
-                        >
+                          className="relative group">
                           <div className="absolute inset-0 rounded-full bg-green-600/30 group-hover:bg-green-600/50 animate-ping delay-150"></div>
                           <div className="relative flex flex-col items-center gap-2 p-4 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-green-500/30 transition-all">
                             <Phone className="w-8 h-8" />
@@ -311,8 +300,8 @@ export default function CallPopup() {
                   <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
                     <Info className="w-4 h-4" />
                     <span>
-                      {timerActive 
-                        ? "Call in progress. Use controls above to manage." 
+                      {timerActive
+                        ? "Call in progress. Use controls above to manage."
                         : "This call will be encrypted end-to-end."}
                     </span>
                   </div>
@@ -325,10 +314,12 @@ export default function CallPopup() {
               <div className="inline-flex items-center gap-4 text-sm text-white/60 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full">
                 <kbd className="px-2 py-1 bg-gray-800 rounded text-xs">Esc</kbd>
                 <span>Decline call</span>
-                
-                <kbd className="px-2 py-1 bg-gray-800 rounded text-xs">Enter</kbd>
+
+                <kbd className="px-2 py-1 bg-gray-800 rounded text-xs">
+                  Enter
+                </kbd>
                 <span>Accept call</span>
-                
+
                 <kbd className="px-2 py-1 bg-gray-800 rounded text-xs">M</kbd>
                 <span>Toggle sound</span>
               </div>
@@ -340,7 +331,8 @@ export default function CallPopup() {
       {/* Add CSS animations */}
       <style jsx>{`
         @keyframes pulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 0.5;
             transform: scale(1);
           }
