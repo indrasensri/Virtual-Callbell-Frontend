@@ -274,7 +274,7 @@ const Profile = () => {
                         name="name"
                         value={myInfo?.name || ""}
                         onChange={handleChange}
-                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-3 py-2.5 bg-gray-50 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter your full name"
                       />
                     ) : (
@@ -303,7 +303,7 @@ const Profile = () => {
                         name="phone"
                         value={myInfo?.phone || ""}
                         onChange={handleChange}
-                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-3 py-2.5 text-black bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter phone number"
                       />
                     ) : (
@@ -323,7 +323,7 @@ const Profile = () => {
                         name="address"
                         value={myInfo?.address || ""}
                         onChange={handleChange}
-                        className="w-full px-3 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-3 py-2.5 bg-gray-50 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter your address"
                       />
                     ) : (
@@ -525,9 +525,9 @@ const Profile = () => {
               </div>
 
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <button className="w-full text-center px-4 py-3 bg-gradient-to-r from-gray-50 to-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition-all duration-200 font-semibold">
+                {/* <button className="w-full text-center px-4 py-3 bg-gradient-to-r from-gray-50 to-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-100 transition-all duration-200 font-semibold">
                   Security Settings
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

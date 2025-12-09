@@ -212,7 +212,7 @@ const DashboardLayout = () => {
                       Welcome back, {user?.name || "User"}! Here's your overview
                     </p>
                   </div>
-                  <div className="hidden lg:flex items-center space-x-3">
+                  {/* <div className="hidden lg:flex items-center space-x-3">
                     <div className="relative">
                       <Bell className="w-6 h-6 text-gray-600 cursor-pointer hover:text-red-600 transition-colors" />
                       <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-xs rounded-full flex items-center justify-center">
@@ -224,7 +224,7 @@ const DashboardLayout = () => {
                       className="px-4 py-2.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-md hover:shadow-lg active:scale-95">
                       New Call
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
