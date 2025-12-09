@@ -24,7 +24,7 @@ import {
   EyeOff,
   Check,
   X,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 
 const Settings = () => {
@@ -40,27 +40,30 @@ const Settings = () => {
   const [loading, setLoading] = useState({
     payment: false,
     paygic: false,
-    livekit: false
+    livekit: false,
   });
+
+  console.log(paygicMid, paygicpassword);
+
   const [showPasswords, setShowPasswords] = useState({
     paygic: false,
-    livekit: false
+    livekit: false,
   });
 
   const togglePasswordVisibility = (field) => {
-    setShowPasswords(prev => ({
+    setShowPasswords((prev) => ({
       ...prev,
-      [field]: !prev[field]
+      [field]: !prev[field],
     }));
   };
 
   const handleUpdatePayGicCredential = async (e) => {
     e.preventDefault();
-    setLoading(prev => ({ ...prev, paygic: true }));
-    
+    setLoading((prev) => ({ ...prev, paygic: true }));
+
     const mid = e.target.mid.value;
     const password = e.target.password.value;
-    
+
     try {
       const { data } = await axios.put(
         `${BASE_URL}/admin/paygic/set/${user.id}/${user.email}`,
@@ -79,7 +82,7 @@ const Settings = () => {
           background: "#ffffff",
           color: "#1f2937",
           showConfirmButton: true,
-          timer: 3000
+          timer: 3000,
         });
       }
     } catch (error) {
@@ -91,14 +94,14 @@ const Settings = () => {
         confirmButtonColor: "#dc2626",
       });
     } finally {
-      setLoading(prev => ({ ...prev, paygic: false }));
+      setLoading((prev) => ({ ...prev, paygic: false }));
     }
   };
 
   const handleUpdatePaymentSystem = async (e) => {
     e.preventDefault();
-    setLoading(prev => ({ ...prev, payment: true }));
-    
+    setLoading((prev) => ({ ...prev, payment: true }));
+
     const paygic = e.target.paygicEnabled.checked;
     try {
       const { data } = await addNewWebsiteData(user.id, user.email, {
@@ -110,11 +113,13 @@ const Settings = () => {
         setRefetch(!refetch);
         Swal.fire({
           title: "Success!",
-          text: `PayGic payment method ${paygic ? 'enabled' : 'disabled'} successfully.`,
+          text: `PayGic payment method ${
+            paygic ? "enabled" : "disabled"
+          } successfully.`,
           icon: "success",
           confirmButtonColor: "#dc2626",
           showConfirmButton: true,
-          timer: 3000
+          timer: 3000,
         });
       }
     } catch (error) {
@@ -126,18 +131,18 @@ const Settings = () => {
         confirmButtonColor: "#dc2626",
       });
     } finally {
-      setLoading(prev => ({ ...prev, payment: false }));
+      setLoading((prev) => ({ ...prev, payment: false }));
     }
   };
 
   const handleUpdateLiveKitCredential = async (e) => {
     e.preventDefault();
-    setLoading(prev => ({ ...prev, livekit: true }));
-    
+    setLoading((prev) => ({ ...prev, livekit: true }));
+
     const url = e.target.url.value;
     const key = e.target.key.value;
     const secret = e.target.secret.value;
-    
+
     try {
       const { data } = await axios.put(
         `${BASE_URL}/admin/livekit/set/${user.id}/${user.email}`,
@@ -155,7 +160,7 @@ const Settings = () => {
           icon: "success",
           confirmButtonColor: "#dc2626",
           showConfirmButton: true,
-          timer: 3000
+          timer: 3000,
         });
       }
     } catch (error) {
@@ -167,7 +172,7 @@ const Settings = () => {
         confirmButtonColor: "#dc2626",
       });
     } finally {
-      setLoading(prev => ({ ...prev, livekit: false }));
+      setLoading((prev) => ({ ...prev, livekit: false }));
     }
   };
 
@@ -219,9 +224,15 @@ const Settings = () => {
 
   const StatusIndicator = ({ status }) => (
     <div className="flex items-center gap-2">
-      <div className={`w-2 h-2 rounded-full ${status ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
-      <span className={`text-sm font-medium ${status ? 'text-green-600' : 'text-gray-500'}`}>
-        {status ? 'Active' : 'Inactive'}
+      <div
+        className={`w-2 h-2 rounded-full ${
+          status ? "bg-green-500 animate-pulse" : "bg-gray-400"
+        }`}></div>
+      <span
+        className={`text-sm font-medium ${
+          status ? "text-green-600" : "text-gray-500"
+        }`}>
+        {status ? "Active" : "Inactive"}
       </span>
     </div>
   );
@@ -252,8 +263,7 @@ const Settings = () => {
             {/* Payment Types Card */}
             <form
               onSubmit={handleUpdatePaymentSystem}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
-            >
+              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -283,7 +293,9 @@ const Settings = () => {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900">PayGic</h3>
-                        <p className="text-sm text-gray-500">Payment gateway integration</p>
+                        <p className="text-sm text-gray-500">
+                          Payment gateway integration
+                        </p>
                       </div>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -309,8 +321,7 @@ const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading.payment}
-                  className="mt-6 w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow"
-                >
+                  className="mt-6 w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow">
                   {loading.payment ? (
                     <>
                       <RefreshCw className="w-5 h-5 animate-spin" />
@@ -329,8 +340,7 @@ const Settings = () => {
             {/* PayGic Credentials Card */}
             <form
               onSubmit={handleUpdatePayGicCredential}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
-            >
+              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-lg bg-purple-50">
@@ -363,7 +373,7 @@ const Settings = () => {
                           defaultValue={paygicMid}
                           name="mid"
                           required
-                          className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                          className="w-full pl-10 pr-4 py-3  rounded-lg border border-gray-300  text-gray-900  focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
                           placeholder="Enter your Merchant ID"
                         />
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
@@ -398,9 +408,8 @@ const Settings = () => {
                         </div>
                         <button
                           type="button"
-                          onClick={() => togglePasswordVisibility('paygic')}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                        >
+                          onClick={() => togglePasswordVisibility("paygic")}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                           {showPasswords.paygic ? (
                             <EyeOff className="w-4 h-4" />
                           ) : (
@@ -415,8 +424,7 @@ const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading.paygic}
-                  className="mt-6 w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow"
-                >
+                  className="mt-6 w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow">
                   {loading.paygic ? (
                     <>
                       <RefreshCw className="w-5 h-5 animate-spin" />
@@ -437,8 +445,7 @@ const Settings = () => {
           <div className="lg:col-span-1">
             <form
               onSubmit={handleUpdateLiveKitCredential}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden h-full"
-            >
+              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden h-full">
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-lg bg-blue-50">
@@ -529,9 +536,8 @@ const Settings = () => {
                       </div>
                       <button
                         type="button"
-                        onClick={() => togglePasswordVisibility('livekit')}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                      >
+                        onClick={() => togglePasswordVisibility("livekit")}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                         {showPasswords.livekit ? (
                           <EyeOff className="w-4 h-4" />
                         ) : (
@@ -545,8 +551,7 @@ const Settings = () => {
                 <button
                   type="submit"
                   disabled={loading.livekit}
-                  className="mt-6 w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow"
-                >
+                  className="mt-6 w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl transition-all shadow-sm hover:shadow">
                   {loading.livekit ? (
                     <>
                       <RefreshCw className="w-5 h-5 animate-spin" />
@@ -564,9 +569,16 @@ const Settings = () => {
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${liveKitUrl && liveKitKey && liveKitSecret ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                      <div
+                        className={`w-2 h-2 rounded-full ${
+                          liveKitUrl && liveKitKey && liveKitSecret
+                            ? "bg-green-500"
+                            : "bg-gray-400"
+                        }`}></div>
                       <span className="text-sm text-gray-600">
-                        {liveKitUrl && liveKitKey && liveKitSecret ? 'Configured' : 'Not Configured'}
+                        {liveKitUrl && liveKitKey && liveKitSecret
+                          ? "Configured"
+                          : "Not Configured"}
                       </span>
                     </div>
                     {liveKitUrl && liveKitKey && liveKitSecret && (
@@ -584,7 +596,9 @@ const Settings = () => {
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium text-red-900 mb-1">Important Notes</h3>
+                  <h3 className="font-medium text-red-900 mb-1">
+                    Important Notes
+                  </h3>
                   <ul className="text-sm text-red-700 space-y-1.5">
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5"></div>

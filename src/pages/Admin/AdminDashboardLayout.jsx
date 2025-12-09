@@ -24,10 +24,13 @@ import {
 } from "lucide-react";
 import { useCall } from "../../Provider/Provider";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import getAllUsers from "../../hooks/admin/getAllUsers";
 
 const AdminDashboardLayout = () => {
   const navigate = useNavigate();
   const { user, logout } = useCall();
+  const [allUsers, setAllUsers] = useState([]);
 
   const handleLogout = () => {
     logout();
@@ -41,15 +44,11 @@ const AdminDashboardLayout = () => {
     { href: "/admin/subscriptions", label: "Subscriptions", icon: CreditCard },
     { href: "/admin/transactions", label: "Transactions", icon: History },
     { href: "/admin/settings", label: "Settings", icon: Settings },
-    // { href: "/admin/website", label: "Website Data", icon: Globe },
-    // { href: "/admin/logs", label: "System Logs", icon: Database },
   ];
 
   const supportLinks = [
-    // { href: "/admin/notifications", label: "Notifications", icon: Bell },
     { href: "/admin/about", label: "About", icon: FileText },
     { href: "/admin/contact", label: "Contact", icon: Mail },
-    // { href: "/admin/help", label: "Help & Support", icon: HelpCircle },
   ];
 
   const legalLinks = [
@@ -60,24 +59,39 @@ const AdminDashboardLayout = () => {
   const systemStats = [
     {
       label: "Active Users",
-      value: "1.2K",
+      value: allUsers.length.toString() || "0",
       change: "+12%",
       color: "text-green-600",
     },
-    {
-      label: "Today's Calls",
-      value: "247",
-      change: "+8%",
-      color: "text-blue-600",
-    },
-    {
-      label: "Revenue",
-      value: "₹24.5K",
-      change: "+15%",
-      color: "text-purple-600",
-    },
-    { label: "Issues", value: "3", change: "-2", color: "text-red-600" },
+    // {
+    //   label: "Today's Calls",
+    //   value: "247",
+    //   change: "+8%",
+    //   color: "text-blue-600",
+    // },
+    // {
+    //   label: "Revenue",
+    //   value: "₹24.5K",
+    //   change: "+15%",
+    //   color: "text-purple-600",
+    // },
+    // { label: "Issues", value: "3", change: "-2", color: "text-red-600" },
   ];
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const { data } = await getAllUsers(user.id, user.email);
+        if (data.success) {
+          setAllUsers(data.users || []);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, [user]);
 
   return (
     <AdminPrivateRoute>
@@ -249,17 +263,6 @@ const AdminDashboardLayout = () => {
                       Welcome back, Administrator. Here's your system overview.
                     </p>
                   </div>
-                  <div className="hidden lg:flex items-center space-x-3">
-                    <div className="relative">
-                      <Bell className="w-6 h-6 text-gray-600 cursor-pointer hover:text-red-600 transition-colors" />
-                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white text-xs rounded-full flex items-center justify-center">
-                        5
-                      </span>
-                    </div>
-                    <button className="px-4 py-2.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-md hover:shadow-lg active:scale-95">
-                      Quick Action
-                    </button>
-                  </div>
                 </div>
 
                 {/* System Stats - Mobile/Tablet */}
@@ -325,7 +328,7 @@ const AdminDashboardLayout = () => {
               </div>
 
               {/* Quick Alerts */}
-              <div className="mb-6">
+              {/* <div className="mb-6">
                 <div className="bg-gradient-to-r from-red-50 to-white rounded-xl p-4 border border-red-100">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -346,7 +349,7 @@ const AdminDashboardLayout = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Content Container */}
               <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden">

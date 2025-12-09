@@ -276,15 +276,7 @@ const AdminSubscription = () => {
     setSortConfig({ key: null, direction: 'asc' });
   };
 
-  const handleExport = () => {
-    // Export functionality would go here
-    Swal.fire({
-      icon: 'info',
-      title: 'Export',
-      text: 'Export functionality would be implemented here',
-      confirmButtonColor: '#dc2626'
-    });
-  };
+
 
   if (loading) {
     return (
@@ -311,13 +303,6 @@ const AdminSubscription = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            <button
-              onClick={handleExport}
-              className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export
-            </button>
             <button
               onClick={() => setModalOpen(true)}
               className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
@@ -522,7 +507,7 @@ const AdminSubscription = () => {
                             type="text"
                             value={editData.name}
                             onChange={(e) => setEditData({...editData, name: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           />
                         </td>
                         <td className="px-6 py-4">
@@ -530,7 +515,7 @@ const AdminSubscription = () => {
                             type="number"
                             value={editData.minute}
                             onChange={(e) => setEditData({...editData, minute: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full px-3 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           />
                         </td>
                         <td className="px-6 py-4">
@@ -538,7 +523,7 @@ const AdminSubscription = () => {
                             type="number"
                             value={editData.duration}
                             onChange={(e) => setEditData({...editData, duration: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full px-3 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           />
                         </td>
                         <td className="px-6 py-4">
@@ -546,7 +531,7 @@ const AdminSubscription = () => {
                             type="number"
                             value={editData.price}
                             onChange={(e) => setEditData({...editData, price: e.target.value})}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            className="w-full px-3 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           />
                         </td>
                         <td className="px-6 py-4">

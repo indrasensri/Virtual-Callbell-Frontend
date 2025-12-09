@@ -19,6 +19,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Subscriptions = () => {
   const { user } = useCall();
@@ -391,10 +392,12 @@ const Subscriptions = () => {
         {/* Support CTA */}
         <div className="mt-8 text-center">
           <p className="text-gray-600 mb-4">Need help choosing a plan?</p>
-          <button className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-semibold">
-            <HelpCircle className="w-4 h-4" />
-            Contact Support
-          </button>
+          <Link to={"/contact"}>
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-semibold">
+              <HelpCircle className="w-4 h-4" />
+              Contact Support
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ import {
   CheckCircle,
   XCircle,
   Bell,
-  FileText
+  FileText,
 } from "lucide-react";
 
 const AdminContact = () => {
@@ -39,9 +39,8 @@ const AdminContact = () => {
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
-    unread: 0,
     thisWeek: 0,
-    lastMonth: 0
+    lastMonth: 0,
   });
   const { user } = useCall();
 
@@ -50,15 +49,19 @@ const AdminContact = () => {
     const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-    const unread = contacts.filter(c => !c.read).length;
-    const thisWeek = contacts.filter(c => new Date(c.createdAt) > oneWeekAgo).length;
-    const lastMonth = contacts.filter(c => new Date(c.createdAt) > oneMonthAgo).length;
+    const unread = contacts.filter((c) => !c.read).length;
+    const thisWeek = contacts.filter(
+      (c) => new Date(c.createdAt) > oneWeekAgo
+    ).length;
+    const lastMonth = contacts.filter(
+      (c) => new Date(c.createdAt) > oneMonthAgo
+    ).length;
 
     return {
       total: contacts.length,
       unread,
       thisWeek,
-      lastMonth
+      lastMonth,
     };
   };
 
@@ -96,17 +99,18 @@ const AdminContact = () => {
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(contact =>
-        contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.message?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.phone?.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (contact) =>
+          contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          contact.message?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          contact.phone?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     // Status filter
     if (statusFilter !== "all") {
-      filtered = filtered.filter(contact => 
+      filtered = filtered.filter((contact) =>
         statusFilter === "unread" ? !contact.read : contact.read
       );
     }
@@ -130,69 +134,25 @@ const AdminContact = () => {
           break;
       }
 
-      filtered = filtered.filter(contact => 
-        new Date(contact.createdAt) > cutoffDate
+      filtered = filtered.filter(
+        (contact) => new Date(contact.createdAt) > cutoffDate
       );
     }
 
     // Sort by date (newest first)
     filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
+
     setFilteredContacts(filtered);
   }, [contactList, searchTerm, statusFilter, dateFilter]);
-
-  const handleMarkAsRead = async (contactId) => {
-    try {
-      await axios.put(BASE_URL + `/admin/contacts/read/${contactId}`);
-      fetchContacts(); // Refresh the list
-    } catch (error) {
-      console.error("Error marking as read:", error);
-    }
-  };
-
-  const handleDeleteContact = async (contactId) => {
-    const result = await Swal.fire({
-      title: "Delete Contact?",
-      text: "Are you sure you want to delete this contact submission? This action cannot be undone.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#dc2626",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, delete it",
-      cancelButtonText: "Cancel"
-    });
-
-    if (result.isConfirmed) {
-      try {
-        await axios.delete(BASE_URL + `/admin/contacts/${contactId}`);
-        fetchContacts();
-        Swal.fire({
-          title: "Deleted!",
-          text: "Contact submission has been deleted.",
-          icon: "success",
-          confirmButtonColor: "#dc2626",
-          timer: 2000
-        });
-      } catch (error) {
-        console.error("Error deleting contact:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to delete contact submission.",
-          icon: "error",
-          confirmButtonColor: "#dc2626",
-        });
-      }
-    }
-  };
 
   const toggleCardExpand = (index) => {
     setExpandedCard(expandedCard === index ? null : index);
   };
 
   const toggleSelectContact = (contactId) => {
-    setSelectedContacts(prev =>
+    setSelectedContacts((prev) =>
       prev.includes(contactId)
-        ? prev.filter(id => id !== contactId)
+        ? prev.filter((id) => id !== contactId)
         : [...prev, contactId]
     );
   };
@@ -200,7 +160,7 @@ const AdminContact = () => {
   const handleBulkAction = async (action) => {
     if (selectedContacts.length === 0) return;
 
-    if (action === 'delete') {
+    if (action === "delete") {
       const result = await Swal.fire({
         title: "Delete Selected?",
         text: `Are you sure you want to delete ${selectedContacts.length} contact submission(s)?`,
@@ -208,13 +168,13 @@ const AdminContact = () => {
         showCancelButton: true,
         confirmButtonColor: "#dc2626",
         cancelButtonColor: "#6b7280",
-        confirmButtonText: `Delete ${selectedContacts.length} items`
+        confirmButtonText: `Delete ${selectedContacts.length} items`,
       });
 
       if (result.isConfirmed) {
         try {
           await Promise.all(
-            selectedContacts.map(id =>
+            selectedContacts.map((id) =>
               axios.delete(BASE_URL + `/admin/contacts/${id}`)
             )
           );
@@ -225,23 +185,13 @@ const AdminContact = () => {
             text: `${selectedContacts.length} contact submission(s) deleted.`,
             icon: "success",
             confirmButtonColor: "#dc2626",
-            timer: 2000
+            timer: 2000,
           });
         } catch (error) {
           console.error("Error deleting contacts:", error);
         }
       }
     }
-  };
-
-  const handleExport = () => {
-    // Export functionality would go here
-    Swal.fire({
-      title: "Export Contacts",
-      text: "Export functionality would be implemented here",
-      icon: "info",
-      confirmButtonColor: "#dc2626",
-    });
   };
 
   const formatDate = (dateString) => {
@@ -257,18 +207,18 @@ const AdminContact = () => {
     } else if (diffDays < 7) {
       return `${diffDays} days ago`;
     } else {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
       });
     }
   };
 
   const formatTime = (dateString) => {
-    return new Date(dateString).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -291,13 +241,6 @@ const AdminContact = () => {
                 </p>
               </div>
             </div>
-            <button
-              onClick={handleExport}
-              className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export
-            </button>
           </div>
 
           {/* Stats Cards */}
@@ -305,8 +248,12 @@ const AdminContact = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-1">Total Contacts</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+                  <p className="text-sm font-medium text-gray-600 mb-1">
+                    Total Contacts
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.total}
+                  </p>
                 </div>
                 <div className="p-3 rounded-lg bg-red-50">
                   <MessageSquare className="w-6 h-6 text-red-600" />
@@ -317,20 +264,12 @@ const AdminContact = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-1">Unread</p>
-                  <p className="text-2xl font-bold text-red-600">{stats.unread}</p>
-                </div>
-                <div className="p-3 rounded-lg bg-yellow-50">
-                  <Bell className="w-6 h-6 text-yellow-600" />
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 mb-1">This Week</p>
-                  <p className="text-2xl font-bold text-blue-600">{stats.thisWeek}</p>
+                  <p className="text-sm font-medium text-gray-600 mb-1">
+                    This Week
+                  </p>
+                  <p className="text-2xl font-bold text-blue-600">
+                    {stats.thisWeek}
+                  </p>
                 </div>
                 <div className="p-3 rounded-lg bg-blue-50">
                   <Calendar className="w-6 h-6 text-blue-600" />
@@ -341,8 +280,12 @@ const AdminContact = () => {
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-1">Last 30 Days</p>
-                  <p className="text-2xl font-bold text-purple-600">{stats.lastMonth}</p>
+                  <p className="text-sm font-medium text-gray-600 mb-1">
+                    Last 30 Days
+                  </p>
+                  <p className="text-2xl font-bold text-purple-600">
+                    {stats.lastMonth}
+                  </p>
                 </div>
                 <div className="p-3 rounded-lg bg-purple-50">
                   <FileText className="w-6 h-6 text-purple-600" />
@@ -383,8 +326,7 @@ const AdminContact = () => {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none transition-all"
-                  >
+                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none transition-all">
                     <option value="all">All Status</option>
                     <option value="unread">Unread Only</option>
                     <option value="read">Read Only</option>
@@ -402,8 +344,7 @@ const AdminContact = () => {
                   <select
                     value={dateFilter}
                     onChange={(e) => setDateFilter(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none transition-all"
-                  >
+                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none transition-all">
                     <option value="all">All Time</option>
                     <option value="today">Today</option>
                     <option value="week">Last 7 Days</option>
@@ -421,8 +362,7 @@ const AdminContact = () => {
                       setStatusFilter("all");
                       setDateFilter("all");
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-red-300 hover:text-red-700 transition-colors font-medium"
-                  >
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-red-300 hover:text-red-700 transition-colors font-medium">
                     <RefreshCw className="w-4 h-4" />
                     Reset
                   </button>
@@ -444,16 +384,14 @@ const AdminContact = () => {
               </div>
               <div className="flex gap-2">
                 <button
-                  onClick={() => handleBulkAction('delete')}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
-                >
+                  onClick={() => handleBulkAction("delete")}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium">
                   <Trash2 className="w-4 h-4" />
                   Delete Selected
                 </button>
                 <button
                   onClick={() => setSelectedContacts([])}
-                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
-                >
+                  className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium">
                   <XCircle className="w-4 h-4" />
                   Clear Selection
                 </button>
@@ -482,15 +420,16 @@ const AdminContact = () => {
                   ? "Try adjusting your filters or search term"
                   : "No contact submissions have been received yet"}
               </p>
-              {(searchTerm || statusFilter !== "all" || dateFilter !== "all") && (
+              {(searchTerm ||
+                statusFilter !== "all" ||
+                dateFilter !== "all") && (
                 <button
                   onClick={() => {
                     setSearchTerm("");
                     setStatusFilter("all");
                     setDateFilter("all");
                   }}
-                  className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors mx-auto"
-                >
+                  className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors mx-auto">
                   <RefreshCw className="w-4 h-4" />
                   Clear all filters
                 </button>
@@ -514,11 +453,10 @@ const AdminContact = () => {
                   <div
                     key={index}
                     className={`bg-white border rounded-xl p-5 shadow-sm hover:shadow-lg transition-all group ${
-                      !item.read ? 'border-red-200 bg-red-50/50' : 'border-gray-200'
-                    } ${
-                      expandedCard === index ? 'ring-2 ring-red-500' : ''
-                    }`}
-                  >
+                      !item.read
+                        ? "border-red-200 bg-red-50/50"
+                        : "border-gray-200"
+                    } ${expandedCard === index ? "ring-2 ring-red-500" : ""}`}>
                     {/* Card Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -540,8 +478,7 @@ const AdminContact = () => {
                         )}
                         <button
                           onClick={() => toggleCardExpand(index)}
-                          className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
-                        >
+                          className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
                           {expandedCard === index ? (
                             <ChevronUp className="w-4 h-4 text-gray-500" />
                           ) : (
@@ -552,22 +489,6 @@ const AdminContact = () => {
                           <button className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
                             <MoreVertical className="w-4 h-4 text-gray-500" />
                           </button>
-                          <div className="absolute right-0 top-full mt-1 w-36 bg-white rounded-lg shadow-lg border border-gray-200 p-1 hidden group-hover:block z-10">
-                            <button
-                              onClick={() => handleMarkAsRead(item._id)}
-                              className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded flex items-center gap-2"
-                            >
-                              <Eye className="w-3 h-3" />
-                              Mark as Read
-                            </button>
-                            <button
-                              onClick={() => handleDeleteContact(item._id)}
-                              className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded flex items-center gap-2"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                              Delete
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -576,31 +497,36 @@ const AdminContact = () => {
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
                         {item.name}
-                        {!item.read && <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>}
+                        {!item.read && (
+                          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                        )}
                       </h3>
-                      
+
                       <div className="space-y-2 mb-4">
                         <div className="flex items-center gap-2">
                           <Mail className="w-4 h-4 text-gray-400" />
                           <a
                             href={`mailto:${item.email}`}
-                            className="text-sm text-gray-700 hover:text-red-600 transition-colors"
-                          >
+                            className="text-sm text-gray-700 hover:text-red-600 transition-colors">
                             {item.email}
                           </a>
                         </div>
-                        
+
                         {item.phone && (
                           <div className="flex items-center gap-2">
                             <Phone className="w-4 h-4 text-gray-400" />
-                            <span className="text-sm text-gray-700">{item.phone}</span>
+                            <span className="text-sm text-gray-700">
+                              {item.phone}
+                            </span>
                           </div>
                         )}
-                        
+
                         {item.address && (
                           <div className="flex items-center gap-2">
                             <MapPin className="w-4 h-4 text-gray-400" />
-                            <span className="text-sm text-gray-700">{item.address}</span>
+                            <span className="text-sm text-gray-700">
+                              {item.address}
+                            </span>
                           </div>
                         )}
                       </div>
@@ -609,11 +535,14 @@ const AdminContact = () => {
                       <div className="mt-4">
                         <div className="flex items-center gap-2 mb-2">
                           <MessageSquare className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm font-medium text-gray-700">Message</span>
+                          <span className="text-sm font-medium text-gray-700">
+                            Message
+                          </span>
                         </div>
-                        <p className={`text-sm text-gray-600 leading-relaxed ${
-                          expandedCard === index ? '' : 'line-clamp-3'
-                        }`}>
+                        <p
+                          className={`text-sm text-gray-600 leading-relaxed ${
+                            expandedCard === index ? "" : "line-clamp-3"
+                          }`}>
                           {item.message}
                         </p>
                       </div>

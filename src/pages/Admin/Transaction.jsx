@@ -182,11 +182,6 @@ const AdminTransaction = () => {
     }
   };
 
-  const handleExport = () => {
-    // Export functionality
-    console.log("Exporting data...");
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-6 lg:p-8">
       {/* Header */}
@@ -200,13 +195,6 @@ const AdminTransaction = () => {
               Monitor and manage all transaction activities
             </p>
           </div>
-          <button
-            onClick={handleExport}
-            className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
-          >
-            <Download className="w-4 h-4" />
-            Export Report
-          </button>
         </div>
 
         {/* Stats Cards */}

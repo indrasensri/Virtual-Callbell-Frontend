@@ -103,7 +103,7 @@ const AdminDashboard = () => {
     },
     {
       title: "Active Subscriptions",
-      value: dashboardData.activeUsers,
+      value: dashboardData.totalSubscriptions,
       change: "+8.2%",
       icon: CreditCard,
       color: "from-green-600 to-emerald-500",
@@ -128,10 +128,10 @@ const AdminDashboard = () => {
   ];
 
   const quickActions = [
-    { icon: UserPlus, label: "Add User", color: "from-blue-600 to-blue-700", link: "/admin/users/add" },
-    { icon: CreditCard, label: "Create Plan", color: "from-green-600 to-green-700", link: "/admin/subscriptions/new" },
-    { icon: Download, label: "Export Data", color: "from-purple-600 to-purple-700", link: "#" },
-    { icon: Shield, label: "Security Log", color: "from-red-600 to-red-700", link: "/admin/logs" }
+    // { icon: UserPlus, label: "Add User", color: "from-blue-600 to-blue-700", link: "/admin/users/add" },
+    { icon: CreditCard, label: "Create Plan", color: "from-green-600 to-green-700", link: "/admin/subscriptions" },
+    // { icon: Download, label: "Export Data", color: "from-purple-600 to-purple-700", link: "#" },
+    // { icon: Shield, label: "Security Log", color: "from-red-600 to-red-700", link: "/admin/logs" }
   ];
 
   if (loading) {
@@ -182,7 +182,7 @@ const AdminDashboard = () => {
                 <select 
                   value={timeRange}
                   onChange={(e) => setTimeRange(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none"
+                  className="pl-10 pr-4 py-2 bg-white border text-black border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none"
                 >
                   <option value="today">Today</option>
                   <option value="week">This Week</option>

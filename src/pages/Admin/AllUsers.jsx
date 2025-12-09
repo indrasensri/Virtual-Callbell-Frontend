@@ -215,24 +215,6 @@ const AllUsers = () => {
     });
   };
 
-  const handleExportUsers = () => {
-    Swal.fire({
-      title: "Export Users",
-      text: "Export all users as CSV file?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#dc2626",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Export CSV",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Implement CSV export logic here
-        Swal.fire("Exported!", "Users data has been exported.", "success");
-      }
-    });
-  };
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -302,12 +284,6 @@ const AllUsers = () => {
                 }
                 className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-medium">
                 {viewMode === "grid" ? "List View" : "Grid View"}
-              </button>
-              <button
-                onClick={handleExportUsers}
-                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200 font-medium">
-                <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">Export</span>
               </button>
             </div>
           </div>
