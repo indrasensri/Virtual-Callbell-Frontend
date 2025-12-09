@@ -102,49 +102,7 @@ const UserInfo = () => {
               </div>
 
               {/* User Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-gradient-to-br from-red-50 to-white rounded-xl p-4 text-center border border-red-100">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center mx-auto mb-2">
-                    <Calendar className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-sm text-gray-500">Member Since</p>
-                  <p className="font-semibold text-gray-900">
-                    {new Date(user?.createdAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-br from-red-50 to-white rounded-xl p-4 text-center border border-red-100">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center mx-auto mb-2">
-                    <Star className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-sm text-gray-500">Status</p>
-                  <div className="flex items-center justify-center gap-1">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="font-semibold text-gray-900">Active</span>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-red-50 to-white rounded-xl p-4 text-center border border-red-100">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center mx-auto mb-2">
-                    <Shield className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-sm text-gray-500">Role</p>
-                  <p className="font-semibold text-gray-900 capitalize">
-                    {user?.role || "User"}
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-br from-red-50 to-white rounded-xl p-4 text-center border border-red-100">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center mx-auto mb-2">
-                    <Clock className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-sm text-gray-500">Last Active</p>
-                  <p className="font-semibold text-gray-900">Recently</p>
-                </div>
-              </div>
+            
 
               {/* Call Manager Section */}
               <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-100">
