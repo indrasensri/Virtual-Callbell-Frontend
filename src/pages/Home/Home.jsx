@@ -19,6 +19,7 @@ import GuestModal from "../../components/welcomeModal/WelcomeModal";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import BannerSlider from "../../components/Slider/BannerSlider";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -29,25 +30,24 @@ const Home = () => {
       {/* Hero Section with Slider */}
       <section className="relative overflow-hidden">
         <BannerSlider />
-        
+
         {/* Hero Overlay Content */}
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/70 via-transparent to-black/30">
           <div className="text-center px-4 max-w-6xl mx-auto">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Instant Calls, 
+              Instant Calls,
               <span className="text-red-500"> Seamless</span> Connections
             </h1>
             <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-              Professional, secure, and crystal-clear voice communication powered by 
-              cutting-edge technology. Connect instantly with QR scanning and enjoy 
-              enterprise-grade security.
+              Professional, secure, and crystal-clear voice communication
+              powered by cutting-edge technology. Connect instantly with QR
+              scanning and enjoy enterprise-grade security.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <GuestModal />
-              <a 
+              <a
                 href="#features"
-                className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-red-600 transition-all duration-300 transform hover:scale-105"
-              >
+                className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-red-600 transition-all duration-300 transform hover:scale-105">
                 Explore Features
               </a>
             </div>
@@ -67,7 +67,9 @@ const Home = () => {
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <stat.icon className="w-12 h-12 text-red-500 mx-auto mb-4" />
-                <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-white mb-2">
+                  {stat.value}
+                </div>
                 <div className="text-gray-300">{stat.label}</div>
               </div>
             ))}
@@ -83,74 +85,94 @@ const Home = () => {
               <Zap className="w-8 h-8 text-red-600" />
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Power-Packed <span className="text-red-600">Features</span>
+              Purchase Qr Code and stick{" "}
+              <span className="text-red-600">anywhere</span>
             </h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Everything you need for professional communication in one platform
+              Your qr code will work as your virtual address Anyone can scan and
+              make audio/video call
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 icon: PhoneCall,
                 title: "Instant Calls",
-                description: "Start crystal-clear voice calls with one click, no downloads required.",
-                color: "from-red-500 to-red-600"
+                description:
+                  "Start crystal-clear voice calls with one click, no downloads required.",
+                color: "from-red-500 to-red-600",
               },
               {
                 icon: QrCode,
                 title: "QR Integration",
-                description: "Scan codes to instantly connect with users, services, or locations.",
-                color: "from-orange-500 to-red-500"
+                description:
+                  "Scan codes to instantly connect with users, services, or locations.",
+                color: "from-orange-500 to-red-500",
               },
               {
                 icon: ShieldCheck,
                 title: "Military-Grade Security",
-                description: "End-to-end encrypted calls ensuring your conversations stay private.",
-                color: "from-green-500 to-emerald-600"
+                description:
+                  "End-to-end encrypted calls ensuring your conversations stay private.",
+                color: "from-green-500 to-emerald-600",
               },
               {
                 icon: Globe,
                 title: "Global Connectivity",
-                description: "Connect with anyone, anywhere with our global server network.",
-                color: "from-blue-500 to-cyan-600"
+                description:
+                  "Connect with anyone, anywhere with our global server network.",
+                color: "from-blue-500 to-cyan-600",
               },
               {
                 icon: MessageCircle,
                 title: "Real-time Messaging",
-                description: "Send instant messages alongside your voice calls for better collaboration.",
-                color: "from-purple-500 to-pink-600"
+                description:
+                  "Send instant messages alongside your voice calls for better collaboration.",
+                color: "from-purple-500 to-pink-600",
               },
               {
                 icon: BarChart3,
                 title: "Analytics Dashboard",
-                description: "Track call history, duration, and user activity with detailed insights.",
-                color: "from-indigo-500 to-purple-600"
+                description:
+                  "Track call history, duration, and user activity with detailed insights.",
+                color: "from-indigo-500 to-purple-600",
               },
             ].map((feature, index) => (
-              <div 
+              <div
                 key={index}
-                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500`} />
+                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500`}
+                />
                 <div className="relative z-10">
-                  <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.color} mb-6`}>
+                  <div
+                    className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.color} mb-6`}>
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    {feature.title}
+                  </h3>
                   <p className="text-gray-600">{feature.description}</p>
-                  <div className="mt-6 pt-6 border-t border-gray-100">
-                    <a 
-                      href="#" 
-                      className="inline-flex items-center text-red-600 font-semibold group-hover:text-red-700 transition-colors duration-300"
-                    >
+                  {/* <div className="mt-6 pt-6 border-t border-gray-100">
+                    <a
+                      href="#"
+                      className="inline-flex items-center text-red-600 font-semibold group-hover:text-red-700 transition-colors duration-300">
                       Learn more
-                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      <svg
+                        className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
                       </svg>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}
@@ -172,39 +194,56 @@ const Home = () => {
               Tailored experiences for different user roles
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Guest",
-                description: "Explore features, scan QR codes, and initiate calls without registration.",
+                description:
+                  "Explore features, scan QR codes, and initiate calls without registration.",
                 features: ["Basic QR Scanning", "Trial Calls", "Feature Demo"],
-                gradient: "from-gray-400 to-gray-600"
+                gradient: "from-gray-400 to-gray-600",
               },
               {
                 title: "Registered User",
-                description: "Full access to all features with personalized dashboard and history.",
-                features: ["Full Call Features", "Dashboard Access", "Call History", "Profile Management"],
-                gradient: "from-red-500 to-red-700"
+                description:
+                  "Full access to all features with personalized dashboard and history.",
+                features: [
+                  "Full Call Features",
+                  "Dashboard Access",
+                  "Call History",
+                  "Profile Management",
+                ],
+                gradient: "from-red-500 to-red-700",
               },
               {
                 title: "Admin",
-                description: "Complete control over system settings, users, and analytics.",
-                features: ["User Management", "System Monitoring", "Analytics", "Settings Control"],
-                gradient: "from-gray-900 to-black"
+                description:
+                  "Complete control over system settings, users, and analytics.",
+                features: [
+                  "User Management",
+                  "System Monitoring",
+                  "Analytics",
+                  "Settings Control",
+                ],
+                gradient: "from-gray-900 to-black",
               },
             ].map((role, index) => (
-              <div 
+              <div
                 key={index}
-                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${role.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500`} />
+                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${role.gradient} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500`}
+                />
                 <div className="relative z-10">
                   <div className="flex items-center mb-6">
-                    <div className={`p-4 rounded-xl bg-gradient-to-br ${role.gradient}`}>
+                    <div
+                      className={`p-4 rounded-xl bg-gradient-to-br ${role.gradient}`}>
                       <Users className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 ml-4">{role.title}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 ml-4">
+                      {role.title}
+                    </h3>
                   </div>
                   <p className="text-gray-600 mb-6">{role.description}</p>
                   <ul className="space-y-3">
@@ -216,12 +255,17 @@ const Home = () => {
                     ))}
                   </ul>
                   <div className="mt-8">
-                    <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                      index === 1 
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800' 
-                        : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                    }`}>
-                      {index === 1 ? 'Get Started' : 'Learn More'}
+                    <button
+                      className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                        index === 1
+                          ? "bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800"
+                          : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                      }`}>
+                      {index === 1 ? (
+                        <Link to="/login">Get Started</Link>
+                      ) : (
+                        <Link to="/about">Learn More</Link>
+                      )}
                     </button>
                   </div>
                 </div>
@@ -245,42 +289,49 @@ const Home = () => {
               Get started in minutes and experience seamless communication
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 step: "01",
                 icon: FileText,
                 title: "Register & Setup",
-                description: "Create your account in seconds. Verify your email and set up your profile.",
-                color: "from-blue-500 to-cyan-500"
+                description:
+                  "Create your account in seconds. Verify your email and set up your profile.",
+                color: "from-blue-500 to-cyan-500",
               },
               {
                 step: "02",
                 icon: QrCode,
                 title: "Scan or Invite",
-                description: "Scan QR codes to connect instantly or invite others via shareable links.",
-                color: "from-purple-500 to-pink-500"
+                description:
+                  "Scan QR codes to connect instantly or invite others via shareable links.",
+                color: "from-purple-500 to-pink-500",
               },
               {
                 step: "03",
                 icon: PhoneCall,
                 title: "Connect & Communicate",
-                description: "Start high-quality calls with one click. Enjoy crystal-clear audio.",
-                color: "from-red-500 to-orange-500"
+                description:
+                  "Start high-quality calls with one click. Enjoy crystal-clear audio.",
+                color: "from-red-500 to-orange-500",
               },
             ].map((step, index) => (
               <div key={index} className="relative">
                 <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="absolute -top-4 -left-4">
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center text-white text-2xl font-bold`}>
+                    <div
+                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center text-white text-2xl font-bold`}>
                       {step.step}
                     </div>
                   </div>
-                  <div className={`mt-8 p-4 rounded-xl bg-gradient-to-br ${step.color} inline-block mb-6`}>
+                  <div
+                    className={`mt-8 p-4 rounded-xl bg-gradient-to-br ${step.color} inline-block mb-6`}>
                     <step.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    {step.title}
+                  </h3>
                   <p className="text-gray-600">{step.description}</p>
                 </div>
                 {index < 2 && (
@@ -306,11 +357,13 @@ const Home = () => {
                 <Server className="w-10 h-10 text-red-400" />
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Enterprise-Grade <span className="text-red-400">Infrastructure</span>
+                Enterprise-Grade{" "}
+                <span className="text-red-400">Infrastructure</span>
               </h2>
               <p className="text-gray-300 text-lg mb-8">
-                Built on a robust, scalable platform with 99.9% uptime guarantee. 
-                Our distributed server network ensures low-latency connections worldwide.
+                Built on a robust, scalable platform with 99.9% uptime
+                guarantee. Our distributed server network ensures low-latency
+                connections worldwide.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 {[
@@ -320,7 +373,9 @@ const Home = () => {
                   { label: "Security", value: "TLS 1.3" },
                 ].map((stat, idx) => (
                   <div key={idx} className="bg-gray-800/50 p-4 rounded-xl">
-                    <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                    <div className="text-2xl font-bold text-white mb-1">
+                      {stat.value}
+                    </div>
                     <div className="text-gray-400 text-sm">{stat.label}</div>
                   </div>
                 ))}
@@ -342,7 +397,9 @@ const Home = () => {
                       </div>
                       <div className="mt-4">
                         <div className="h-1 w-full bg-gray-700 rounded overflow-hidden">
-                          <div className={`h-full bg-gradient-to-r from-red-500 to-orange-500`} style={{ width: `${70 + item * 5}%` }}></div>
+                          <div
+                            className={`h-full bg-gradient-to-r from-red-500 to-orange-500`}
+                            style={{ width: `${70 + item * 5}%` }}></div>
                         </div>
                       </div>
                     </div>
@@ -361,13 +418,14 @@ const Home = () => {
             Ready to Transform Your Communication?
           </h2>
           <p className="text-xl text-red-100 mb-10 max-w-3xl mx-auto">
-            Join thousands of professionals who trust CallBell for their daily communication needs.
+            Join thousands of professionals who trust CallBell for their daily
+            communication needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <GuestModal />
-            <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
+            {/* <button className="px-8 py-3 bg-white text-red-600 font-bold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
               Schedule a Demo
-            </button>
+            </button> */}
           </div>
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
             {[
@@ -399,57 +457,69 @@ const Home = () => {
               See what our users have to say about their experience
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 name: "Sarah Johnson",
                 role: "Product Manager",
                 company: "TechCorp Inc.",
-                content: "CallBell has revolutionized our team communication. The QR integration alone saved us hours of setup time.",
+                content:
+                  "CallBell has revolutionized our team communication. The QR integration alone saved us hours of setup time.",
                 rating: 5,
-                avatarColor: "bg-gradient-to-br from-red-100 to-red-200"
+                avatarColor: "bg-gradient-to-br from-red-100 to-red-200",
               },
               {
                 name: "Michael Chen",
                 role: "CTO",
                 company: "StartUpXYZ",
-                content: "The security features give us peace of mind for confidential client calls. Enterprise-grade at startup prices.",
+                content:
+                  "The security features give us peace of mind for confidential client calls. Enterprise-grade at startup prices.",
                 rating: 5,
-                avatarColor: "bg-gradient-to-br from-blue-100 to-blue-200"
+                avatarColor: "bg-gradient-to-br from-blue-100 to-blue-200",
               },
               {
                 name: "Emma Rodriguez",
                 role: "Operations Director",
                 company: "GlobalConnect",
-                content: "Our international teams love the low latency. Finally, a solution that works seamlessly across continents.",
+                content:
+                  "Our international teams love the low latency. Finally, a solution that works seamlessly across continents.",
                 rating: 5,
-                avatarColor: "bg-gradient-to-br from-green-100 to-green-200"
+                avatarColor: "bg-gradient-to-br from-green-100 to-green-200",
               },
             ].map((testimonial, index) => (
-              <div 
+              <div
                 key={index}
-                className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-              >
+                className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div className="absolute -top-4 -right-4">
                   <div className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold text-sm">
                     ★ {testimonial.rating}.0
                   </div>
                 </div>
                 <div className="flex items-center mb-6">
-                  <div className={`w-16 h-16 rounded-full ${testimonial.avatarColor} flex items-center justify-center text-xl font-bold text-gray-800 mr-4`}>
+                  <div
+                    className={`w-16 h-16 rounded-full ${testimonial.avatarColor} flex items-center justify-center text-xl font-bold text-gray-800 mr-4`}>
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900">{testimonial.name}</h4>
+                    <h4 className="text-lg font-bold text-gray-900">
+                      {testimonial.name}
+                    </h4>
                     <p className="text-gray-600">{testimonial.role}</p>
-                    <p className="text-sm text-red-600">{testimonial.company}</p>
+                    <p className="text-sm text-red-600">
+                      {testimonial.company}
+                    </p>
                   </div>
                 </div>
-                <p className="text-gray-700 italic mb-6">"{testimonial.content}"</p>
+                <p className="text-gray-700 italic mb-6">
+                  "{testimonial.content}"
+                </p>
                 <div className="flex">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
+                    <Star
+                      key={i}
+                      className="w-5 h-5 text-yellow-500 fill-current"
+                    />
                   ))}
                 </div>
               </div>
@@ -465,13 +535,16 @@ const Home = () => {
             Start Your Free Trial Today
           </h3>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            No credit card required. Get full access to all features for 14 days.
+            No credit card required. Get full access to all features for 14
+            days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <GuestModal />
-            <button className="px-8 py-3 border-2 border-red-600 text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-all duration-300">
-              Contact Sales
-            </button>
+            <Link to="/contact">
+              <button className="px-8 py-3 border-2 border-red-600 text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-all duration-300">
+                Contact Sales
+              </button>
+            </Link>
           </div>
           <div className="mt-8 text-sm text-gray-500">
             <CheckCircle className="w-4 h-4 inline mr-2 text-green-500" />
