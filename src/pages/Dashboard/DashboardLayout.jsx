@@ -229,24 +229,7 @@ const DashboardLayout = () => {
               </div>
 
               {/* Stats Cards - Mobile/Tablet */}
-              <div className="lg:hidden grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <div className="bg-gradient-to-br from-red-50 to-white rounded-xl p-3 border border-red-100">
-                  <p className="text-xs text-gray-600">Calls Today</p>
-                  <p className="text-xl font-bold text-gray-900">12</p>
-                </div>
-                <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-3 border border-blue-100">
-                  <p className="text-xs text-gray-600">Messages</p>
-                  <p className="text-xl font-bold text-gray-900">24</p>
-                </div>
-                <div className="bg-gradient-to-br from-green-50 to-white rounded-xl p-3 border border-green-100">
-                  <p className="text-xs text-gray-600">Online</p>
-                  <p className="text-xl font-bold text-gray-900">8</p>
-                </div>
-                <div className="bg-gradient-to-br from-purple-50 to-white rounded-xl p-3 border border-purple-100">
-                  <p className="text-xs text-gray-600">Storage</p>
-                  <p className="text-xl font-bold text-gray-900">75%</p>
-                </div>
-              </div>
+             
 
               {/* Content Container */}
               <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
