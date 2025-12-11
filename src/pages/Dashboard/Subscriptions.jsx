@@ -55,7 +55,6 @@ const Subscriptions = () => {
           userId: user.id,
           subId: id,
         });
-        console.log(data);
         if (data.success) {
           window.location.href = data.payPageUrl;
         }

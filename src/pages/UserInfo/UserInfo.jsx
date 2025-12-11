@@ -102,7 +102,6 @@ const UserInfo = () => {
               </div>
 
               {/* User Stats */}
-            
 
               {/* Call Manager Section */}
               <div className="bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 border border-red-100">

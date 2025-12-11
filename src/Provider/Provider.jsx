@@ -254,7 +254,7 @@ export const Provider = ({ children }) => {
 
 
   // ✅ Data available everywhere
-  const data = {
+  const data = {                                                                                                                                                                         
     handleEndCall,
     incomingCall,
     declineCall,

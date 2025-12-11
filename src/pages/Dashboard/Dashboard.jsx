@@ -299,67 +299,6 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-
-            {/* Quick Actions */}
-            {/* <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-red-50 to-white p-4 sm:p-6 border-b border-red-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">
-                      Quick Actions
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Frequently used tasks
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 sm:p-6 space-y-3">
-                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
-                  <div className="flex items-center gap-3">
-                    <PhoneCall className="w-5 h-5 text-red-500 group-hover:text-red-600" />
-                    <span className="font-medium text-black">
-                      Start New Call
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
-                </button>
-
-                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
-                  <div className="flex items-center gap-3">
-                    <Download className="w-5 h-5 text-red-500 group-hover:text-red-600" />
-                    <span className="font-medium text-black">
-                      Download Reports
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
-                </button>
-
-                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
-                  <div className="flex items-center gap-3">
-                    <CreditCard className="w-5 h-5 text-red-500 group-hover:text-red-600" />
-                    <span className="font-medium text-black">
-                      Manage Payment
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
-                </button>
-
-                <button className="w-full flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group">
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-red-500 group-hover:text-red-600" />
-                    <span className="font-medium text-black">
-                      Invite Friends
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-red-600" />
-                </button>
-              </div>
-            </div> */}
           </div>
 
           {/* Transaction History */}
@@ -415,64 +354,71 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {myInfo?.transactionHistory?.map((tran, idx) => (
-                    <tr
-                      key={idx}
-                      className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        #{tran._id?.slice(-8) || idx + 1000}
-                      </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
-                        {new Date(tran.createdAt).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`w-2 h-2 rounded-full ${
-                              tran.plan?.toLowerCase().includes("premium")
-                                ? "bg-red-500"
-                                : "bg-blue-500"
-                            }`}></div>
-                          <span className="text-sm font-medium text-gray-900">
-                            {tran.plan}
+                  {myInfo?.transactionHistory
+                    ?.slice() // Create a copy to avoid mutating original array
+                    .sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    ) // Sort by date descending (newest first)
+                    .map((tran, idx) => (
+                      <tr
+                        key={idx}
+                        className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          #{tran._id?.slice(-8) || idx + 1000}
+                        </td>
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                          {new Date(tran.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )}
+                        </td>
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className={`w-2 h-2 rounded-full ${
+                                tran.plan?.toLowerCase().includes("premium")
+                                  ? "bg-red-500"
+                                  : "bg-blue-500"
+                              }`}></div>
+                            <span className="text-sm font-medium text-gray-900">
+                              {tran.plan}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                          ₹{tran.amount}
+                        </td>
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              tran.status === "Completed"
+                                ? "bg-green-100 text-green-800"
+                                : tran.status === "Pending"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}>
+                            {tran.status === "Completed" && (
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                            )}
+                            {tran.status === "Pending" && (
+                              <AlertCircle className="w-3 h-3 mr-1" />
+                            )}
+                            {tran.status}
                           </span>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-gray-900">
-                        ₹{tran.amount}
-                      </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            tran.status === "Completed"
-                              ? "bg-green-100 text-green-800"
-                              : tran.status === "Pending"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                          }`}>
-                          {tran.status === "Completed" && (
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                          )}
-                          {tran.status === "Pending" && (
-                            <AlertCircle className="w-3 h-3 mr-1" />
-                          )}
-                          {tran.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
-                        <button className="text-red-600 hover:text-red-800 font-medium text-sm">
-                          View Details
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                          <button className="text-red-600 hover:text-red-800 font-medium text-sm">
+                            View Details
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
-
               {(!myInfo?.transactionHistory ||
                 myInfo.transactionHistory.length === 0) && (
                 <div className="text-center py-12">
