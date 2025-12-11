@@ -20,6 +20,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import BannerSlider from "../../components/Slider/BannerSlider";
 import { Link } from "react-router-dom";
+import SubscriptionSection from "./SubscriptionSection";
 
 const Home = () => {
   return (
@@ -442,6 +443,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <SubscriptionSection />
 
       {/* Testimonials Section */}
       <section className="px-4 py-20 bg-white">
